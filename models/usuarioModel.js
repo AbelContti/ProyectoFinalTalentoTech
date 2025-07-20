@@ -13,7 +13,7 @@ export async function createUser(user) {
         const existingUser = await getUserByEmail(user.email);
         
         if (existingUser) {
-            throw new ConflictError("El email ya está registrado");
+            throw new ConflictError("Error creando usuario: el email ingresado ya está registrado");
         }
 
         await addDoc(usersCollection, user);
@@ -41,7 +41,7 @@ export async function validateEmail(email) {
         const user = await getUserByEmail(email);
 
         if(!user) {
-            throw new NotFoundError(`El usuario no existe`);
+            throw new NotFoundError(`Error al validar usuario: el usuario no existe`);
         }
 
         return user;
@@ -55,7 +55,7 @@ export async function validatePassword(password, hashedPassword) {
         const validPassword = await bcrypt.compare(password, hashedPassword);
 
         if(!validPassword)
-            throw new AuthError("Contraseña incorrecta");
+            throw new AuthError("Error al validar usuario: contraseña incorrecta");
     } catch (error) {
         throw error;
     }

@@ -1,10 +1,3 @@
-// import {
-//   getAllProducts as getAll,
-//   getProductById as getById,
-//   saveProduct as save,
-//   deleteProduct as remove
-// } from '../models/productoModel.js';
-
 import { getAllProducts, getProductById, saveProduct, deleteProduct } from '../models/productoModel.js';
 
 export async function getAll() {

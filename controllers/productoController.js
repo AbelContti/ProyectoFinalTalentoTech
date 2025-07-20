@@ -13,6 +13,7 @@ export async function getProductos(req, res, next) {
 export async function getProducto(req, res, next) {
   try {
     const { id } = req.params;
+    
     const producto = await getById(id);
     res.json(producto);
   
