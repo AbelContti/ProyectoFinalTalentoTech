@@ -2,15 +2,7 @@ import { db } from '../data/data.js';
 import { NotFoundError } from '../errors/NotFoundError.js';
 import { ConflictError } from '../errors/ConflictError.js';
 
-import {
-    collection,
-    getDocs,
-    getDoc,
-    addDoc,
-    setDoc,
-    deleteDoc,
-    doc
-} from 'firebase/firestore';
+import { collection, getDocs, getDoc, setDoc, deleteDoc, doc } from 'firebase/firestore';
 
 const productsCollection = collection(db, 'productos');
 
