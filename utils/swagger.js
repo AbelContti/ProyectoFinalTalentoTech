@@ -1,10 +1,5 @@
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = process.cwd();
 
 const swaggerOptions = {
   definition: {
@@ -15,7 +10,7 @@ const swaggerOptions = {
       description: 'Documentación de API Rest con Node.js y Express',
     },
     servers: [
-      { url: 'https://proyecto-final-talento-tech-seven.vercel.app/' }
+      { url: 'https://proyecto-final-talento-tech-seven.vercel.app' }
     ],
     components: {
       securitySchemes: {
@@ -27,7 +22,7 @@ const swaggerOptions = {
       },
     },
   },
-  apis: [join(__dirname, '../routes/*.js')] // Archivos donde escribiremos las anotaciones
+  apis: ['./routes/*.js'], // Archivos donde escribiremos las anotaciones
 };
 
 export const swaggerSpec = swaggerJSDoc(swaggerOptions);
