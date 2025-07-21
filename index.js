@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.get("/", (res, req) => {
+app.get("/", (req, res) => {
     res.json({mensaje: "Bienvenido a la API"});
 });
 app.use('/auth', authRoutes);
