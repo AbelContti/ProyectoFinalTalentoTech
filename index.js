@@ -6,6 +6,7 @@ import productoRoutes from './routes/productoRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { authentication } from './middlewares/authentication.js';
+import { swaggerUi, swaggerSpec } from './utils/swagger.js';
 
 const app = express();
 const PORT = 3000;
@@ -13,6 +14,8 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/auth', authRoutes);
 app.use('/productos', authentication, productoRoutes);
