@@ -10,7 +10,7 @@ const swaggerOptions = {
       description: 'Documentación de API Rest con Node.js y Express',
     },
     servers: [
-      { url: 'http://localhost:3000' }
+      { url: 'https://proyecto-final-talento-tech-seven.vercel.app/' }
     ],
     components: {
       securitySchemes: {
