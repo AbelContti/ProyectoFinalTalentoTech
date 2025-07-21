@@ -7,16 +7,49 @@ import bcrypt from 'bcrypt';
 
 const usersCollection = collection(db, 'usuarios');
 
-export async function createUser(user) {
+export async function createUser(email, password) {
     try {
-        // Podrías validar si el email ya existe antes de registrar
-        const existingUser = await getUserByEmail(user.email);
+        if(!email || !password) {
+            throw new ConflictError("Error creando usuario: debe ingresar un email y una contraseña");
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        
+        const newUser = {
+            email: email,
+            password: hashedPassword
+        }
+
+        const existingUser = await getUserByEmail(newUser.email);
         
         if (existingUser) {
             throw new ConflictError("Error creando usuario: el email ingresado ya está registrado");
         }
 
-        await addDoc(usersCollection, user);
+        await addDoc(usersCollection, newUser);
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function loginUser(email, password) {
+    try {
+        if(!email || !password) {
+            throw new ConflictError(`Error al validar usuario: debe ingresar email y contraseña`);
+        }
+        
+        const user = await getUserByEmail(email);
+
+        if(!user) {
+            throw new NotFoundError(`Error al validar usuario: no existe un usuario con el email proporcionado`);
+        }
+
+        const validPassword = await bcrypt.compare(password, user.password);
+
+        if(!validPassword)
+            throw new AuthError("Error al validar usuario: contraseña incorrecta");
+
+        return user;
     } catch (error) {
         throw error;
     }
@@ -29,33 +62,7 @@ export async function getUserByEmail(email) {
 
         if (querySnapshot.empty) return null;
 
-        // Suponemos que no hay emails duplicados
         return { id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data() };
-    } catch (error) {
-        throw error;
-    }
-}
-
-export async function validateEmail(email) {
-    try {
-        const user = await getUserByEmail(email);
-
-        if(!user) {
-            throw new NotFoundError(`Error al validar usuario: el usuario no existe`);
-        }
-
-        return user;
-    } catch (error) {
-        throw error;
-    }
-}
-
-export async function validatePassword(password, hashedPassword) {
-    try {
-        const validPassword = await bcrypt.compare(password, hashedPassword);
-
-        if(!validPassword)
-            throw new AuthError("Error al validar usuario: contraseña incorrecta");
     } catch (error) {
         throw error;
     }
