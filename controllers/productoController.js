@@ -24,7 +24,7 @@ export async function getProducto(req, res, next) {
 
 export async function createProducto(req, res, next) {
   try {
-    if(!req.body) {
+    if(!req.body) { // Valida que el cuerpo del mensaje no esté vacio
       res.status(404).json({ mensaje: "El cuerpo del mensaje está vacio" });
     }
     

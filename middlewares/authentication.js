@@ -19,7 +19,7 @@ export function authentication(req, res, next) {
             return next(new ForbiddenError('Token inválido o expirado'));
         }
         
-        req.user = user; // Ahora podemos usar req.user en las rutas
+        req.user = user;
         next();
     });
 }

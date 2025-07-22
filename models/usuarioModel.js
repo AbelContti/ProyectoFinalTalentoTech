@@ -9,11 +9,11 @@ const usersCollection = collection(db, 'usuarios');
 
 export async function createUser(email, password) {
     try {
-        if(!email || !password) {
+        if(!email || !password) { // Valida que existan los campos del usuario dentro del cuerpo del mensaje
             throw new ConflictError("Error creando usuario: debe ingresar un email y una contraseña");
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10); // Se utiliza bcrypt para encriptar la contraseña
         
         const newUser = {
             email: email,
@@ -22,7 +22,7 @@ export async function createUser(email, password) {
 
         const existingUser = await getUserByEmail(newUser.email);
         
-        if (existingUser) {
+        if (existingUser) { // Si el correo ingresado es igual a otro ya almacenado, se produce un error
             throw new ConflictError("Error creando usuario: el email ingresado ya está registrado");
         }
 
@@ -34,19 +34,19 @@ export async function createUser(email, password) {
 
 export async function loginUser(email, password) {
     try {
-        if(!email || !password) {
+        if(!email || !password) { // Valida que existan los campos del usuario dentro del cuerpo del mensaje
             throw new ConflictError(`Error al validar usuario: debe ingresar email y contraseña`);
         }
         
         const user = await getUserByEmail(email);
 
-        if(!user) {
+        if(!user) { // Busca al usuario dentro de la base de datos por su dirección de email. Si no lo encuentra, se produce un error
             throw new NotFoundError(`Error al validar usuario: no existe un usuario con el email proporcionado`);
         }
 
         const validPassword = await bcrypt.compare(password, user.password);
 
-        if(!validPassword)
+        if(!validPassword) // Valida que la contraseña enviada sea igual a la almacenada encriptada. Produce un error si son diferentes
             throw new AuthError("Error al validar usuario: contraseña incorrecta");
 
         return user;

@@ -5,5 +5,3 @@ export class ForbiddenError extends Error {
         this.code = 'FORBIDDEN';
     }
 }
-
-//'Acceso prohibido. Token no válido o expirado'

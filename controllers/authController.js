@@ -3,7 +3,7 @@ import { auth, register } from '../services/usuarioService.js';
 
 export async function registerUser(req, res, next) {
     try {
-        if(!req.body) {
+        if(!req.body) { // Valida que el cuerpo del mensaje no esté vacio
             res.status(404).json({ mensaje: "El cuerpo del mensaje está vacio" });
         }
 
@@ -18,7 +18,7 @@ export async function registerUser(req, res, next) {
 
 export async function loginUser(req, res, next) {
     try {
-        if(!req.body) {
+        if(!req.body) { // Valida que el cuerpo del mensaje no esté vacio
             res.status(404).json({ mensaje: "El cuerpo del mensaje está vacio" });
         }
         

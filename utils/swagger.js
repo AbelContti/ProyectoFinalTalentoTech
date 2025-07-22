@@ -22,7 +22,7 @@ const swaggerOptions = {
       },
     },
   },
-  apis: ['./routes/*.js'], // Archivos donde escribiremos las anotaciones
+  apis: ['./routes/*.js'],
 };
 
 export const swaggerSpec = swaggerJSDoc(swaggerOptions);
