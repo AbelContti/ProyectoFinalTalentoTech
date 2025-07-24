@@ -5,7 +5,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /productos:
+ * /api/productos:
  *   get:
  *     summary: Obtiene todos los productos
  *     tags: [Productos]
@@ -21,7 +21,7 @@ const router = express.Router();
 
 /** 
  * @swagger
- * /productos/create:
+ * /api/productos/create:
  *   post:
  *     summary: Crea un nuevo producto
  *     tags: [Productos]
@@ -59,7 +59,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /productos/{id}:
+ * /api/productos/{id}:
  *   get:
  *     summary: Obtiene un producto por su ID
  *     tags: [Productos]
